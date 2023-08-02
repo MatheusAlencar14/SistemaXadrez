@@ -16,6 +16,7 @@ public class ChessMatch {
     private Board board;
     private boolean check;
     private boolean checkMate;
+    private ChessPiece enPassantVulnerable;
 
     private List<Piece> piecesOnTheBoard = new ArrayList<>();
     private List<Piece> capturedPieces = new ArrayList<>();
@@ -41,6 +42,10 @@ public class ChessMatch {
 
     public boolean getCheckMate() {
         return checkMate;
+    }
+
+    public ChessPiece getEnPassantVulnerable() {
+        return enPassantVulnerable;
     }
 
     public ChessPiece[][] getPieces() {
@@ -71,12 +76,21 @@ public class ChessMatch {
             throw new ChessException("Jogada não permitida. Você não pode se colocar em xeque.");
         }
 
+        ChessPiece movedPiece = (ChessPiece)board.piece(target);
+
         check = (testCheck(opponent(currentPlayer))) ? true : false;
 
         if (testCheckMate(opponent(currentPlayer))) {
             checkMate = true;
         } else {
             nextTurn();
+        }
+
+        //Movimento especial En Passant
+        if (movedPiece instanceof Pawn && (target.getRow() == source.getRow() - 2 || target.getRow() == source.getRow() + 2)) {
+            enPassantVulnerable = movedPiece;
+        } else {
+            enPassantVulnerable = null;
         }
 
         return (ChessPiece) capturedPiece;
