@@ -115,8 +115,8 @@ public class ChessMatch {
         if (promoted == null) {
             throw new IllegalStateException("Não há peça para ser promovida.");
         }
-        if (!type.equals("B") && !type.equals("C") && !type.equals("T") & !type.equals("R")) {
-            throw new InvalidParameterException("Tipo inválido para promoção.");
+        if (!type.equals("B") && !type.equals("C") && !type.equals("T") && !type.equals("R")) {
+            return promoted;
         }
 
         Position pos = promoted.getChessPosition().toPosition();
