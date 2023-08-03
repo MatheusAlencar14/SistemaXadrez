@@ -41,6 +41,13 @@ public class Program {
                 if (capituredPiece != null) {
                     captured.add(capituredPiece);
                 }
+
+                if (chessMatch.getPromoted() != null) {
+                    System.out.print("Digite a peça a ser promovida (T/B/C/R): ");
+                    String type = sc.nextLine();
+                    chessMatch.replacePromotedPiece(type);
+                }
+
             } catch (ChessException e) {
                 System.out.println(e.getMessage());
                 sc.nextLine();
